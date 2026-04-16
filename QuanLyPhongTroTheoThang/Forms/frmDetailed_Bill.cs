@@ -90,6 +90,23 @@ namespace QuanLyPhongTroTheoThang.Forms
 
                 cboContract.Enabled = true;
                 dtpMonth.Value = DateTime.Now;
+                txtNhanVienLap.Text = frmMain.TenNhanVienHienTai;
+
+                if (this.Tag != null)
+                {
+                    int roomId = Convert.ToInt32(this.Tag);
+
+                    var activeContract = context.Contracts
+                        .Where(c => c.RoomID == roomId && c.ContractStatus != "Đã thanh lý" && c.ContractStatus != "Đã hủy")
+                        .OrderByDescending(c => c.ContractID)
+                        .FirstOrDefault();
+
+                    if (activeContract != null)
+                    {
+                        cboContract.SelectedValue = activeContract.ContractID;
+                        cboContract.Enabled = false;
+                    }
+                }
             }
         }
 
@@ -136,6 +153,7 @@ namespace QuanLyPhongTroTheoThang.Forms
                 txtTotal.Text = bill.Total.ToString("N0");
                 chkStatus.Checked = bill.Status;
                 txtNotes.Text = bill.Notes ?? "";
+                txtNhanVienLap.Text = bill.CreatedBy;
             }
         }
 
@@ -264,7 +282,8 @@ namespace QuanLyPhongTroTheoThang.Forms
                     WaterNew = (int)nudWaterNew.Value,
                     Total = totalAmount,
                     Status = chkStatus.Checked,
-                    Notes = txtNotes.Text
+                    Notes = txtNotes.Text,
+                    CreatedBy = txtNhanVienLap.Text
                 };
                 context.Bills.Add(newBill);
             }

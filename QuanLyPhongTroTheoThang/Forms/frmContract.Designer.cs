@@ -154,6 +154,7 @@ namespace QuanLyPhongTroTheoThang.Forms
             // 
             // txtTimKiem
             // 
+            txtTimKiem.Anchor = AnchorStyles.Bottom;
             txtTimKiem.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtTimKiem.Location = new Point(656, 303);
             txtTimKiem.Name = "txtTimKiem";
@@ -175,7 +176,9 @@ namespace QuanLyPhongTroTheoThang.Forms
             Controls.Add(btnSua);
             Controls.Add(btnXoa);
             Name = "frmContract";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Quản Lý Hợp Đồng";
+            WindowState = FormWindowState.Maximized;
             Load += frmContract_Load;
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvContract).EndInit();

@@ -79,6 +79,8 @@ namespace QuanLyPhongTroTheoThang.Forms
                 contract.NumberOfOccupants = (int)nudNumberOfOccupants.Value;
                 contract.Notes = txtNotes.Text;
 
+                contract.CreatedBy = txtNhanVienLap.Text;
+
                 if (contract.ContractStatus == "Đã thanh lý" || contract.ContractStatus == "Đã hủy")
                 {
                     var room = context.Rooms.Find(contract.RoomID);
@@ -118,6 +120,11 @@ namespace QuanLyPhongTroTheoThang.Forms
             {
                 this.Text = "Lập Hợp Đồng Mới";
                 cmbContractStatus.Text = "Đang hiệu lực";
+                txtNhanVienLap.Text = frmMain.TenNhanVienHienTai;
+                if (this.Tag != null)
+                {
+                    cmbRoom.SelectedValue = Convert.ToInt32(this.Tag);
+                }
             }
         }
 
@@ -158,6 +165,8 @@ namespace QuanLyPhongTroTheoThang.Forms
                 nudNumberOfOccupants.Value = contract.NumberOfOccupants > 0 ? contract.NumberOfOccupants : 1;
 
                 txtNotes.Text = contract.Notes;
+
+                txtNhanVienLap.Text = contract.CreatedBy;
             }
         }
 
@@ -175,6 +184,7 @@ namespace QuanLyPhongTroTheoThang.Forms
             cmbContractStatus.Enabled = false;
             nudNumberOfOccupants.Enabled = false;
             txtNotes.Enabled = false;
+            txtNhanVienLap.Enabled = false;
 
             btnLuu.Visible = false; 
             btnHuyBo.Text = "Đóng"; 
